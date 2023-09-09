@@ -5,14 +5,24 @@
 * [Setup](#setup)
 
 ## General info
-This is the Android Studio project for Shophy.
+This are the server and the client for Workout Together.
 	
 ## Technologies
 Project is created with:
+* Node version: 14.16.1
 * Android Studio version: 4.1.3
     * API: 29
 	
 ## Setup
+To run the server, install it locally using npm:
+
+```
+$ cd '.\Workout Together Server\' 
+$ npm install
+$ npm install -g nodemon
+$ nodemon app
+```
+
 The .apk is located at:
 ```
 .\ShophyAndroidClient\app\build\outputs\apk\debug
