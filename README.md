@@ -1,14 +1,8 @@
 # Shophy
 ## Table of contents
-* [Contest related](#contest-info)
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-
-## Contest related
-* Nume echipa: Zdev
-* Scoala de proveninta: Colegiul National de Informatica Tudor Vianu
-* Link pitch: https://drive.google.com/file/d/1ZYaV9IYWplNXQ1dGdu9ITVgYI24Et1n9/view?usp=sharing
 
 ## General info
 This is the Android Studio project for Shophy.
@@ -17,10 +11,9 @@ This is the Android Studio project for Shophy.
 Project is created with:
 * Android Studio version: 4.1.3
     * API: 29
-
 	
 ## Setup
-The .apk is also located at:
+The .apk is located at:
 ```
 .\ShophyAndroidClient\app\build\outputs\apk\debug
 ```
