@@ -1,0 +1,26 @@
+<%- include('partials/headerShop'); -%>
+
+<body>
+    
+    <%- include('partials/shopMap'); -%>
+    <% if(shop.products.names.length > 0) { %>
+        <%  for (let i = 0; i < shop.products.names.length; i++) { %>
+            <div class="card bg-card card-margin" style="width: 18rem; position:relative;">
+                <a class="product-display" href="<%= shop._id %>/product/<%= i %>">
+                    <img src="<%= shop.products.images[i] %>" class="card-img-top" alt="" type="image/png">
+                    <div class="card-body" style="width: 18rem; position:relative;">
+                        <h5 class="card-title"><%= shop.products.names[i] %></h5>
+                        <p class="card-text"><%= shop.products.shortdescriptions[i] %></p>
+                        <p class="card-text"><%= shop.products.prices[i] + ' RONI'%></p>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>There are no products to display.</p>
+    <% } %>
+    
+</body>
+
+<%- include('partials/nav'); -%>
+<%- include('partials/footer'); -%>

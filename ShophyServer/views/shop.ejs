@@ -1,0 +1,29 @@
+<%- include('partials/header'); -%>
+
+<body>
+
+    <div class="users-list">
+        <div class="d-flex justify-content-between">
+            <h2 class="top-title-card">Shops</h2>
+        </div>
+
+            <% if(shopsMap.length > 0) { %>
+                <% shopsMap.forEach(shop => { %>
+                    <div class="user-display-cell">
+                        <a class="single" href="/shop/<%= shop._id %>">
+                            <img class="profile-img" src="/res/groupPicture.png" alt="profile img">
+                            <h4 class="profile-username" ><%= shop.shopname %></h4>   
+                        </a>
+                    </div>
+              <% }); %>
+            <% } else { %>
+                <p>There are no shops to display.</p>
+            <% } %>
+
+
+      </div>
+
+</body>
+
+<%- include('partials/nav'); -%>
+<%- include('partials/footer'); -%>

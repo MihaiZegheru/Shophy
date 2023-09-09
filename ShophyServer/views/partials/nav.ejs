@@ -1,0 +1,41 @@
+<ul class="nav nav-pills mb-0 d-flex justify-content-center nav-fill navbar-expand fixed-bottom bg-gray navbar-light " id="pills-tab" role="navigation">
+    <li class="nav-item nav-fill">
+      <a class="nav-link" id="pills-shop-tab" data-toggle="pill" href="/shop" role="tab" aria-controls="pills-home" aria-selected="false">Shop</a>
+    </li>
+    <li class="nav-item nav-fill">
+      <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="pills-profile" aria-selected="false">
+        <img class="image-button" src="/res/homeButton.png" alt="homeButton">
+    </a>
+    </li>
+    <li class="nav-item nav-fill">
+      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#" role="tab" aria-controls="pills-contact" aria-selected="false">Profile</a> <!--/profile-->
+    </li>
+</ul>
+
+
+    <script>
+        const shopPill = document.getElementById("pills-shop-tab");
+        const homePill = document.getElementById("pills-home-tab");
+        const profilePill = document.getElementById("pills-profile-tab");
+
+        const pathName = window.location.pathname;
+
+        if (pathName.includes(profilePill.getAttribute("href"))) {
+            profilePill.setAttribute("aria-selected", "true");
+            shopPill.setAttribute("class", "nav-link text-muted");
+            homePill.setAttribute("class", "nav-link ");
+            profilePill.setAttribute("class", "nav-link active bg-secondary");
+        }
+        else if (pathName.includes(shopPill.getAttribute("href"))) {
+            shopPill.setAttribute("aria-selected", "true");
+            shopPill.setAttribute("class", "nav-link active bg-secondary");
+            homePill.setAttribute("class", "nav-link text-muted");
+            profilePill.setAttribute("class", "nav-link text-muted");
+        }    
+        else if (pathName.includes(homePill.getAttribute("href"))) {
+            homePill.setAttribute("aria-selected", "true");
+            homePill.setAttribute("class", "nav-link active bg-secondary");
+            shopPill.setAttribute("class", "nav-link text-muted");
+            profilePill.setAttribute("class", "nav-link text-muted");
+        }   
+  </script>

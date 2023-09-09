@@ -1,0 +1,20 @@
+<%- include('partials/headerShop'); -%>
+
+<body>
+
+    <div class="card bg-card card-margin" style="width: 18rem; position:relative;">
+        <img src="<%= product.image %>" class="card-img-top" alt="...">
+        <div class="card-body product-display" style="width: 18rem; position:relative;">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text"><%= product.description %></p>
+            <hr class="bg-gray">
+            <p class="card-text"><%= product.price + ' RONI'%></p>
+        <% if(isOwner) { %>
+            <a href="javascript:window.location.href=window.location.href + '/update'"><button class="right down-button">Update</button></a>
+        <% } %>
+    </div>
+    
+</body>
+
+<%- include('partials/nav'); -%>
+<%- include('partials/footer'); -%>

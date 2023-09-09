@@ -1,0 +1,65 @@
+<%- include('partials/headerShop'); -%>
+
+<body class="bg-gray">
+    <form class="bg-gray">
+        <h2>Update your Product</h2>       
+        <div id="product-form">
+            <div id="product">
+                <label class="type-label" for="productName">Name</label>
+                <input class="bg-gray" type="text" name="product-name" value="<%= product.name %>" required />
+                <label for="productShortdescription">Short Description</label>
+                <input class="bg-gray" type="text" name="product-shortdescription" value="<%= product.shortdescription %>"  required />
+                <label for="productDescription">Description</label>
+                <input class="bg-gray" type="text" name="product-description" value="<%= product.description %>" required />
+                <label for="productPrice">Price</label>
+                <input class="bg-gray" type="number" name="product-price" value="<%= product.price %>" required />
+                <label for="productImage">Image Link</label>
+                <input class="bg-gray" type="link" name="product-image" value="<%= product.image %>">
+                <hr class="bg-gray">
+            </div>
+        </div>
+
+        <button class="right down-button">Update</button>
+    </form>
+</body>
+
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const productName = document.getElementsByName("product-name")[0].value;
+        const productPrice = document.getElementsByName("product-price")[0].value;
+        const productShortdescription = document.getElementsByName("product-shortdescription")[0].value;
+        const productDescription = document.getElementsByName("product-description")[0].value;
+        const productImage = document.getElementsByName("product-image")[0].value;
+
+        try {
+            const res = await fetch(String(window.location.pathname), {
+                method: 'POST',
+                body: JSON.stringify({ product: {name: productName, 
+                        shortdescription: productShortdescription, description: productDescription, 
+                        price: productPrice, image: productImage}}),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            console.log(data);
+
+            if (data.shop) {
+                let pathArray = window.location.pathname.split('/');
+                location.assign('/' + pathArray[1] + '/' + pathArray[2]);
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
+
+
+</script>
+
+
+
+<%- include('partials/nav'); -%>
+<%- include('partials/footer'); -%>

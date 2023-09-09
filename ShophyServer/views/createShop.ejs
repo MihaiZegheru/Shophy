@@ -1,0 +1,129 @@
+<!-- add partial -->
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+<title>Workout Together</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/styles.css">
+
+<body class="bg-gray">
+    <form class="bg-gray">
+        <h2>Create your Shop</h2>
+        <label for="shopname">Shops's Name</label>
+        <input class="bg-gray" type="text" name="shopname" required />
+
+        <label for="location">Location</label>
+        <%- include('partials/pinpointMap'); -%>
+
+        <div id="product-form">
+            <label for="products">Products</label>
+            <div id="product">
+                <label class="type-label" for="productName">Name</label>
+                <input class="bg-gray" type="text" name="product-name" required />
+                <label for="productShortdescription">Short Description</label>
+                <input class="bg-gray" type="text" name="product-shortdescription" required />
+                <label for="productDescription">Description</label>
+                <textarea class="bg-gray" type="text" name="product-description" rows="10" required /></textarea>
+                <!-- <input class="bg-gray" type="text" name="product-description" required /> -->
+                <label for="productPrice">Price</label>
+                <input class="bg-gray" type="number" step="0.01" name="product-price" required />
+                <label for="productImage">Image Link</label>
+                <input class="bg-gray" type="url" name="product-image">
+                <hr class="bg-gray">
+            </div>
+            <span id="add-product-form"></span>
+            <input class="radio-button" type="button" id="addFields" value="Add Product" />
+        </div>
+
+        <button class="right down-button">Create</button>
+    </form>
+</body>
+
+<script>
+    let productsCounter = 0;
+    document.getElementById("addFields").onclick = addFields;
+    //document.getElementById("exercise-form").style.display = "none";
+
+
+    function addFields() {
+	    productsCounter++;
+
+        let newFields = document.getElementById('product').cloneNode(true);
+        newFields.id = 'product';
+        let newField = newFields.childNodes;
+
+	    for (let i = 0; i < newField.length; i++) {
+            let objName = newField[i].name;
+        }
+
+        let insertPos = document.getElementById('add-product-form');
+	    insertPos.parentNode.insertBefore(newFields, insertPos);
+        window.onload = addFields;
+    }
+
+
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const shopname = form.shopname.value;
+        const productsName = [];
+        const productsPrice = [];
+        const productsShortdescription = [];
+        const productsDescription = [];
+        const productsImage = [];
+
+        const products = document.getElementsByName("product-name");
+        const prices = document.getElementsByName("product-price");
+        const shortdescriptions = document.getElementsByName("product-shortdescription");
+        const descriptions = document.getElementsByName("product-description");
+        const images = document.getElementsByName("product-image");
+
+        for (let i = 0; i <= productsCounter; i++) {
+            productsName.push(products[i].value);
+            productsPrice.push(prices[i].value);
+            productsShortdescription.push(shortdescriptions[i].value);
+            productsDescription.push(descriptions[i].value);
+            productsImage.push(images[i].value);
+        }
+
+        const lngLat = marker.getLngLat();
+        const lng = lngLat.lng;
+        const lat = lngLat.lat;
+
+        try {
+            const res = await fetch(String(window.location.pathname), {
+                method: 'POST',
+                body: JSON.stringify({ 
+                                    shopname: shopname, 
+                                    position: {lng: lng, lat: lat}, 
+                                    products: {
+                                        names: productsName, 
+                                        shortdescriptions: productsShortdescription, 
+                                        descriptions: productsDescription, 
+                                        prices: productsPrice, 
+                                        images: productsImage
+                                    }}),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            console.log(data);
+
+            if (data.shop) {
+                location.assign(window.location.pathname.replace('create', data.shop));
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+    });
+
+
+</script>
+
+
+
+<%- include('partials/nav'); -%>
+<%- include('partials/footer'); -%>
